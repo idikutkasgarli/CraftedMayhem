@@ -3,7 +3,7 @@
 
 #include "ItemPile.h"
 
-ABaseItem* LastItem;
+//ABaseItem* LastItem;
 
 // Sets default values
 AItemPile::AItemPile()
@@ -30,7 +30,7 @@ void AItemPile::Tick(float DeltaTime)
 void AItemPile::AddToPile(ABaseItem* Item, bool& bFilled)
 {
 	if (!Item)return;
-	LastItem = Item;
+	//LastItem = Item;
 	bFilled = false;
 	if (HoldingItems.Num() < 2)
 	{
@@ -45,6 +45,6 @@ void AItemPile::AddToPile(ABaseItem* Item, bool& bFilled)
 
 void AItemPile::RemoveAnItemFromItemPile()
 {
-	HoldingItems.Remove(LastItem);
+	//HoldingItems.Remove(LastItem);
 }
 

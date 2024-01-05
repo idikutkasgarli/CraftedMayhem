@@ -5,7 +5,7 @@
 #include "ItemPile.h"
 #include "Components/PrimitiveComponent.h"
 
-AItemPile ItemPile;
+//AItemPile ItemPile;
 // Sets default values for this component's properties
 UPickUpSystem::UPickUpSystem()
 {
@@ -40,10 +40,10 @@ void UPickUpSystem::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 void UPickUpSystem::SnapItemToCharacter(AActor* TargetCharacter, AActor* Item, FName SocketName)
 {
 	if (!TargetCharacter || !Item) return;
-	if (bItemInPile)
-	{
-		ItemPile.RemoveAnItemFromPile();
-	}
+	//if (bItemInPile)
+	//{
+	//	ItemPile.RemoveAnItemFromPile();
+	//}
 	USkeletalMeshComponent* CharacterMesh = Cast<USkeletalMeshComponent>(TargetCharacter->GetComponentByClass(USkeletalMeshComponent::StaticClass()));
 	if (!CharacterMesh) return;
 
