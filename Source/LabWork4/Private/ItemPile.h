@@ -34,8 +34,5 @@ public:
 	void RemoveAnItemFromItemPile(ABaseItem* ItemToRemove);
 	UPROPERTY(BlueprintReadWrite)
 	ANetBaseCharacter* BelongCharacter;
-	UPROPERTY(EditInstanceOnly,BlueprintReadWrite, Meta = (MakeEditWidget = true))
-	FTransform CharSpawnPoint;
-
 
 };
