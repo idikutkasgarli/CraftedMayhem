@@ -4,7 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
 #include "BaseItem.generated.h"
+
+UENUM(BlueprintType)
+enum class ItemTypes : uint8
+{
+	Cube = 0,
+	Cone = 1,
+	Sphere = 2,
+	Cylinder = 3,
+};
 class AItemPile;
 
 UCLASS()
@@ -31,4 +41,15 @@ public:
 	bool bWasInPile;
 	UPROPERTY(BlueprintReadWrite)
 	AItemPile* LastItemPileIn;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMeshComponent* Mesh;
+
+	UFUNCTION(BlueprintCallable)
+	void SetItemVisual(ItemTypes ItemType);
+	UFUNCTION(BlueprintCallable)
+	void ChangeMesh(FString path);
+	UFUNCTION(BlueprintCallable)
+	ItemTypes GetRandomItemType();
+
+
 };
