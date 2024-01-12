@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BaseItem.h"
+#include "NetBaseCharacter.h"
 #include "ItemPile.generated.h"
 
 UCLASS()
@@ -30,7 +31,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AddToPile(ABaseItem* Item, bool& bFilled);
 	UFUNCTION(BlueprintCallable)
-	void RemoveAnItemFromItemPile();
+	void RemoveAnItemFromItemPile(ABaseItem* ItemToRemove);
+	UPROPERTY(BlueprintReadWrite)
+	ANetBaseCharacter* BelongCharacter;
+	UPROPERTY(EditInstanceOnly,BlueprintReadWrite, Meta = (MakeEditWidget = true))
+	FTransform CharSpawnPoint;
 
 
 };

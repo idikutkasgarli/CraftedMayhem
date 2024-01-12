@@ -35,14 +35,23 @@ void AItemPile::AddToPile(ABaseItem* Item, bool& bFilled)
 		HoldingItems.Add(Item);
 		if (HoldingItems.Num() == 2)
 		{
-			//buraya yeni itemi çýkar ve eski iki itemi yok et veya gizle
 			bFilled = true;
+			for (ABaseItem* ExistingItem : HoldingItems)
+			{
+				if (ExistingItem)
+				{
+					ExistingItem->bPickable = false;
+					ExistingItem->SetActorHiddenInGame(false);
+					//buraya yeni itemi çýkar ve eski iki itemi yok et veya gizle
+					//yeni bi fonk aç ve burda oluþan yeni Item'ý spawnla ve özelliklerini oyuncuya ver
+				}
+			}
 		}
 	}
 }
 
-void AItemPile::RemoveAnItemFromItemPile()
+void AItemPile::RemoveAnItemFromItemPile(ABaseItem* ItemToRemove)
 {
-	//HoldingItems.Remove(LastItem);
+	HoldingItems.Remove(ItemToRemove);
 }
 

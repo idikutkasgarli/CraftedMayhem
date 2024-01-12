@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BaseItem.generated.h"
+class AItemPile;
 
 UCLASS()
 class ABaseItem : public AActor
@@ -26,5 +27,8 @@ public:
 public:
 	UPROPERTY(BlueprintReadWrite)
 	bool bPickable;
-
+	UPROPERTY(BlueprintReadWrite)
+	bool bWasInPile;
+	UPROPERTY(BlueprintReadWrite)
+	AItemPile* LastItemPileIn;
 };

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "ItemPile.h"
 #include "NetGameMode.generated.h"
 
 /**
@@ -17,5 +18,7 @@ class ANetGameMode : public AGameModeBase
 public:
 
 	ANetGameMode();
+
+
 	
 };
