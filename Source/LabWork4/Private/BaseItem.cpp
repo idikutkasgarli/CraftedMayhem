@@ -1,6 +1,7 @@
 
 #include "BaseItem.h"
 #include "Math/UnrealMathUtility.h" 
+#include <Net/UnrealNetwork.h>
 
 // Sets default values
 ABaseItem::ABaseItem()
@@ -29,7 +30,7 @@ void ABaseItem::BeginPlay()
 {
 	Super::BeginPlay();
 	//SetItemVisual(GetRandomItemType());
-
+	MultiPlayerSetVisuals();
 }
 
 // Called every frame
@@ -68,9 +69,10 @@ ItemTypes ABaseItem::GetRandomItemType()
 	return AllItemTypes[RandomIndex];
 }
 
-void ABaseItem::SelectItemType(ItemTypes ItemType)
+
+void ABaseItem::SelectItemType(ItemTypes ItemTypee)
 {
-	switch (ItemType)
+	switch (ItemTypee)
 	{
 	case ItemTypes::Cube:
 	{
@@ -93,4 +95,28 @@ void ABaseItem::SelectItemType(ItemTypes ItemType)
 		break;
 	}
 	}
+}
+
+void ABaseItem::MultiPlayerSetVisuals()
+{
+	if (HasAuthority())
+	{
+		ItemTypeRep = GetRandomItemType();
+		SelectItemType(ItemTypeRep);
+	}
+	else
+	{
+		SelectItemType(ItemTypeRep);
+	}
+}
+
+void ABaseItem::OnRep_SelectItem()
+{
+	SelectItemType(ItemTypeRep);
+}
+
+void ABaseItem::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ABaseItem, ItemTypeRep);
 }

@@ -28,11 +28,13 @@ public:
 public: 
 	UPROPERTY(BlueprintReadWrite)
 	TArray<ABaseItem*> HoldingItems;
+	UPROPERTY(BlueprintReadWrite)
+	ANetBaseCharacter* BelongCharacter;
 	UFUNCTION(BlueprintCallable)
 	void AddToPile(ABaseItem* Item, bool& bFilled);
 	UFUNCTION(BlueprintCallable)
 	void RemoveAnItemFromItemPile(ABaseItem* ItemToRemove);
-	UPROPERTY(BlueprintReadWrite)
-	ANetBaseCharacter* BelongCharacter;
+	UFUNCTION(BlueprintCallable)
+	void SetCraftedItem(ABaseItem* NewCheckingItems);
 
 };

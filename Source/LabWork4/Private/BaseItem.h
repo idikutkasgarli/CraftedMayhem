@@ -41,14 +41,21 @@ public:
 	AItemPile* LastItemPileIn;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMeshComponent* Mesh;
-	//UPROPERTY(BlueprintReadWrite, Replicated)
-	//ItemTypes ItemType;
+	UPROPERTY(BlueprintReadWrite, ReplicatedUsing=OnRep_SelectItem)
+	ItemTypes ItemTypeRep;
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeMesh(FString path);
 	UFUNCTION(BlueprintCallable)
 	ItemTypes GetRandomItemType();
 	UFUNCTION(BlueprintCallable)
-	void SelectItemType(ItemTypes ItemType);
+	void SelectItemType(ItemTypes ItemTypee);
+	UFUNCTION(BlueprintCallable)
+	void MultiPlayerSetVisuals();
+	UFUNCTION(BlueprintCallable)
+	void OnRep_SelectItem();
+
+protected:
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 };
