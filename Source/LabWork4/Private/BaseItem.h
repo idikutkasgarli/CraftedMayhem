@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -21,8 +19,8 @@ UCLASS()
 class ABaseItem : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ABaseItem();
 
@@ -30,7 +28,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -43,13 +41,14 @@ public:
 	AItemPile* LastItemPileIn;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMeshComponent* Mesh;
+	//UPROPERTY(BlueprintReadWrite, Replicated)
+	//ItemTypes ItemType;
 
-	UFUNCTION(BlueprintCallable)
-	void SetItemVisual(ItemTypes ItemType);
 	UFUNCTION(BlueprintCallable)
 	void ChangeMesh(FString path);
 	UFUNCTION(BlueprintCallable)
 	ItemTypes GetRandomItemType();
-
+	UFUNCTION(BlueprintCallable)
+	void SelectItemType(ItemTypes ItemType);
 
 };
