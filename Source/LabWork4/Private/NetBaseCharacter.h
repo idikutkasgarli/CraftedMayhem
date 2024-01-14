@@ -118,4 +118,17 @@ private:
     static FSMeshAssetList* GetBodyPartList(EBodyPart part, bool isFemale);
 
     void UpdateBodyParts();
+
+public:
+    UFUNCTION(BlueprintCallable,NetMulticast, Reliable)
+    void TakeDamage(float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+    UPROPERTY(Replicated,BlueprintReadWrite,Category = "Character Health")
+    float Health;
+    UPROPERTY(BlueprintReadWrite, Category = "Character Health")
+    float MaxHealth;//geçici
+    UPROPERTY(BlueprintReadWrite, Category = "Character Health")
+    bool bDead;//geçici
+protected:
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

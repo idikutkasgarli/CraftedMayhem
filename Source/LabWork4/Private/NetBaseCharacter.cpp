@@ -52,12 +52,17 @@ ANetBaseCharacter::ANetBaseCharacter()
 
 	static ConstructorHelpers::FObjectFinder<UDataTable> DT_BodyParts(TEXT("DataTable'/Game/Blueprints/DT_BodyParts.DT_BodyParts'"));
 	SBodyParts = DT_BodyParts.Object;
+
+	bDead = false;
+	MaxHealth = 100;
 }
 
 // Called when the game starts or when spawned
 void ANetBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	MaxHealth = 100;
+	Health = MaxHealth;
 
 	if (IsLocallyControlled())
 	{
@@ -148,6 +153,7 @@ void ANetBaseCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimePropert
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ANetBaseCharacter, PartSelection);
+	DOREPLIFETIME(ANetBaseCharacter, Health)
 }
 
 FSMeshAssetList* ANetBaseCharacter::GetBodyPartList(EBodyPart part, bool isFemale)
@@ -167,4 +173,17 @@ void ANetBaseCharacter::UpdateBodyParts()
 	ChangeBodyPart(EBodyPart::BP_EyeBrows, 0, false);
 
 }
+
+void ANetBaseCharacter::TakeDamage_Implementation(float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
+{
+	if (!HasAuthority())return;
+	if (bDead)return;
+	Health = Health - Damage;
+	if (Health <= 0)
+	{
+		bDead = true;
+	}
+}
+
+
 
