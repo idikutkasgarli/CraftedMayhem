@@ -127,7 +127,7 @@ public:
     float Health;
     UPROPERTY(BlueprintReadWrite, Category = "Character Health")
     float MaxHealth;//geçici
-    UPROPERTY(BlueprintReadWrite, Category = "Character Health")
+    UPROPERTY(BlueprintReadWrite, Category = "Character Health", ReplicatedUsing = OnRep_bDead)
     bool bDead;//geçici
 
     UPROPERTY(BlueprintReadWrite)
@@ -135,6 +135,8 @@ public:
 
     UFUNCTION(BlueprintCallable,NetMulticast,reliable)
     void WhenDead();
+    UFUNCTION()
+    void OnRep_bDead();
 protected:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };
