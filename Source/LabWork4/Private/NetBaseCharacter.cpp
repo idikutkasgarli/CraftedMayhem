@@ -3,6 +3,7 @@
 
 #include "NetBaseCharacter.h"
 #include "NetGameInstance.h"
+#include <Kismet/GameplayStatics.h>
 
 static UDataTable* SBodyParts = nullptr;
 
@@ -149,6 +150,18 @@ void ANetBaseCharacter::OnRep_PlayerInfoChanged()
 	UpdateBodyParts();
 }
 
+void ANetBaseCharacter::WhenDead_Implementation()//replike_?
+{
+
+	if (PlayerController)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("disabled"));
+		PlayerController->DisableInput(nullptr); // nullptr, tüm giriþ türlerini devre dýþý býrakýr
+		PlayerController->UnPossess();
+	}
+
+}
+
 void ANetBaseCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -182,6 +195,7 @@ void ANetBaseCharacter::TakeDamage_Implementation(float Damage, const UDamageTyp
 	if (Health <= 0)
 	{
 		bDead = true;
+		WhenDead();
 	}
 }
 

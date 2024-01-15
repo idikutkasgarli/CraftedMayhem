@@ -129,6 +129,12 @@ public:
     float MaxHealth;//geçici
     UPROPERTY(BlueprintReadWrite, Category = "Character Health")
     bool bDead;//geçici
+
+    UPROPERTY(BlueprintReadWrite)
+    APlayerController* PlayerController;
+
+    UFUNCTION(BlueprintCallable,NetMulticast,reliable)
+    void WhenDead();
 protected:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

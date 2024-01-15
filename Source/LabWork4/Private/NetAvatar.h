@@ -41,6 +41,8 @@ public:
 	UFUNCTION(Server, Reliable)
 	void ServerStopRunning();
 
+
+
 private:
 	UFUNCTION()
 	void OnRep_UpdateMovementParams();
