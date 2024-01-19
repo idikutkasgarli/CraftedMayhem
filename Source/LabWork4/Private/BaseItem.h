@@ -8,10 +8,9 @@
 UENUM(BlueprintType)
 enum class ItemTypes : uint8
 {
-	Cube = 0,
-	Cone = 1,
-	Sphere = 2,
-	Cylinder = 3,
+	Heart = 0,
+	Speed = 1,
+	Attack = 2,
 };
 class AItemPile;
 

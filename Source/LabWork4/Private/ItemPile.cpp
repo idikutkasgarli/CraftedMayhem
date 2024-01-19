@@ -72,114 +72,74 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 	{
 		switch (CheckingItem->ItemTypeRep)
 		{
-			case ItemTypes::Cube:
+			case ItemTypes::Heart:
 			{
 				switch (NewCheckingItems->ItemTypeRep)//with Cube
 				{
-					case ItemTypes::Cube:
+					case ItemTypes::Heart:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("CubeX2"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HeartX2"));
 						break;
 					}
-					case ItemTypes::Cone:
+					case ItemTypes::Speed:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cube-Cone"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Hearth-Speed"));
 						break;
 					}
-					case ItemTypes::Sphere:
+					case ItemTypes::Attack:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cube-Cone"));
-						break;
-					}
-					case ItemTypes::Cylinder:
-					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cube-Cylinder"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Hearth-Attack"));
 						break;
 					}
 				}
 				break;
 			}
-			case ItemTypes::Cone:
+			case ItemTypes::Speed:
 			{
 				switch (NewCheckingItems->ItemTypeRep)
 				{
-					case ItemTypes::Cube:
+					case ItemTypes::Heart:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cone-Cube"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Speed-Heart"));
 						break;
 					}
-					case ItemTypes::Cone:
+					case ItemTypes::Speed:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ConeX2"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("SpeedX2"));
 						break;
 					}
-					case ItemTypes::Sphere:
+					case ItemTypes::Attack:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cone-Sphere"));
-						break;
-					}
-					case ItemTypes::Cylinder:
-					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cone-Cylinder"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Speed-Attack"));
 						break;
 					}
 				}
 				break;
 			}
-			case ItemTypes::Sphere:
+			case ItemTypes::Attack:
 			{
 				switch (NewCheckingItems->ItemTypeRep)
 				{
-					case ItemTypes::Cube:
+					case ItemTypes::Heart:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Sphere-Cube"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Attack-Heart"));
 						break;
 					}
-					case ItemTypes::Cone:
+					case ItemTypes::Speed:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Sphere-Cone"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Attack-Speed"));
 						break;
 					}
-					case ItemTypes::Sphere:
+					case ItemTypes::Attack:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("SphereX2"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AttackX2"));
 						break;
 					}
-					case ItemTypes::Cylinder:
-					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Sphere-Cylinder"));
-						break;
-					}
+	
 				}
 				break;
 			}
-			case ItemTypes::Cylinder:
-			{
-					switch (NewCheckingItems->ItemTypeRep)
-					{
-					case ItemTypes::Cube:
-					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cylinder-Cube"));
-						break;
-					}
-					case ItemTypes::Cone:
-					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cylinder-Cone"));
-						break;
-					}
-					case ItemTypes::Sphere:
-					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Cylinder-Sphere"));
-						break;
-					}
-					case ItemTypes::Cylinder:
-					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("CylinderX2"));
-						break;
-					}
-				}
-				break;
-			}
+
 		}
 		CheckingItem = nullptr;
 	}

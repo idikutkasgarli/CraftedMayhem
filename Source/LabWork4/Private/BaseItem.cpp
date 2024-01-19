@@ -60,7 +60,7 @@ void ABaseItem::ChangeMesh(FString Path)
 ItemTypes ABaseItem::GetRandomItemType()
 {
 	// Enum deðerlerini belirleme
-	TArray<ItemTypes> AllItemTypes = { ItemTypes::Cube, ItemTypes::Cone, ItemTypes::Sphere, ItemTypes::Cylinder };
+	TArray<ItemTypes> AllItemTypes = { ItemTypes::Heart, ItemTypes::Speed, ItemTypes::Attack};
 
 	// Rastgele bir tamsayý seç
 	int8 RandomIndex = FMath::RandRange(0, AllItemTypes.Num() - 1);
@@ -74,26 +74,22 @@ void ABaseItem::SelectItemType(ItemTypes ItemTypee)
 {
 	switch (ItemTypee)
 	{
-	case ItemTypes::Cube:
+	case ItemTypes::Heart:
 	{
 		ChangeMesh("StaticMesh'/Engine/BasicShapes/Cube.Cube'");
 		break;
 	}
-	case ItemTypes::Cone:
+	case ItemTypes::Speed:
 	{
 		ChangeMesh("StaticMesh'/Engine/BasicShapes/Cone.Cone'");
 		break;
 	}
-	case ItemTypes::Sphere:
+	case ItemTypes::Attack:
 	{
 		ChangeMesh("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'");
 		break;
 	}
-	case ItemTypes::Cylinder:
-	{
-		ChangeMesh("StaticMesh'/Engine/BasicShapes/Cylinder.Cylinder'");
-		break;
-	}
+
 	}
 }
 
