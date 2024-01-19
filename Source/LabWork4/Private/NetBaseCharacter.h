@@ -144,6 +144,10 @@ public:
     UFUNCTION()
     void OnRep_Buff();
 
+    UFUNCTION(BlueprintImplementableEvent)
+    void WhenDied();
+    UFUNCTION(BlueprintCallable)
+    void DisableInputPlayer();
     
 
 protected:

@@ -156,10 +156,9 @@ void ANetBaseCharacter::WhenDead_Implementation()//replike_?
 	if (PlayerController)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("disabled"));
-		PlayerController->DisableInput(nullptr); // nullptr, tüm giriþ türlerini devre dýþý býrakýr
-		PlayerController->UnPossess();
-		bDead = true;
 
+		bDead = true;
+		WhenDied();
 	}
 
 }
@@ -171,6 +170,12 @@ void ANetBaseCharacter::OnRep_bDead()
 
 void ANetBaseCharacter::OnRep_Buff()
 {
+}
+
+void ANetBaseCharacter::DisableInputPlayer()
+{
+	PlayerController->DisableInput(nullptr); // nullptr, tüm giriþ türlerini devre dýþý býrakýr
+	PlayerController->UnPossess();
 }
 
 
