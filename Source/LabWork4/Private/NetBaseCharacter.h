@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Runtime/Engine/Classes/Engine/DataTable.h"
 #include "Net/UnrealNetwork.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "NetBaseCharacter.generated.h"
 
 UENUM(BlueprintType)
@@ -130,6 +131,8 @@ public:
     UPROPERTY(BlueprintReadWrite, Category = "Character Health", ReplicatedUsing = OnRep_bDead)
     bool bDead;//geçici
 
+    
+
     UPROPERTY(BlueprintReadWrite)
     APlayerController* PlayerController;
 
@@ -137,6 +140,14 @@ public:
     void WhenDead();
     UFUNCTION()
     void OnRep_bDead();
+
+    UFUNCTION()
+    void OnRep_Buff();
+
+    
+
 protected:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+
 };

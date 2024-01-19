@@ -5,7 +5,9 @@
 #include "GameFrameWork/CharacterMovementComponent.h"
 
 ANetAvatar::ANetAvatar() :
+	bSpeedBuff(false),
 	MovementScale(1.0f)
+
 {
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
@@ -29,6 +31,7 @@ void ANetAvatar::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& Out
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ANetAvatar, bHoldingRunKey);
+	DOREPLIFETIME(ANetAvatar, bSpeedBuff);
 }
 
 void ANetAvatar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -44,6 +47,39 @@ void ANetAvatar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	PlayerInputComponent->BindAction("Run", EInputEvent::IE_Released, this, &ANetAvatar::RunReleased);
 
 }
+
+void ANetAvatar::DoubleHeartBuff()
+{
+	Health = 200.f;
+}
+
+void ANetAvatar::HeartAndSpeedBuff()
+{
+	//can yenileme
+}
+
+void ANetAvatar::HeartAndAttackBuff()
+{
+	//silahýn boyutu artýyo
+}
+
+void ANetAvatar::DoubleSpeedBuff(bool bSpeedTrigger)
+{
+	bSpeedBuff = bSpeedTrigger;
+	OnRep_UpdateMovementParams();
+}
+
+void ANetAvatar::SpeedAndAttackBuff()
+{
+	//attack speed
+}
+
+void ANetAvatar::DoubleAttackBuff()
+{
+	//2x damage
+}
+
+
 
 void ANetAvatar::MoveForward(float Scale)
 {
@@ -66,7 +102,19 @@ void ANetAvatar::MoveRight(float Scale)
 
 void ANetAvatar::OnRep_UpdateMovementParams()
 {
-	if (bHoldingRunKey)
+	if (bSpeedBuff)
+	{
+		if (bHoldingRunKey)
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 1500.0f;
+		}
+		else
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 1000.0f;
+		}
+	
+	}
+	else if (bHoldingRunKey)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = 600.0f;
 	}

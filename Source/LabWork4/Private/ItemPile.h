@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "BaseItem.h"
 #include "NetBaseCharacter.h"
+#include "NetAvatar.h"
 #include "ItemPile.generated.h"
 
 UCLASS()
@@ -30,6 +31,9 @@ public:
 	TArray<ABaseItem*> HoldingItems;
 	UPROPERTY(BlueprintReadWrite)
 	ANetBaseCharacter* BelongCharacter;
+	UPROPERTY(BlueprintReadWrite)
+	ANetAvatar* BelongAvatar;
+
 	UFUNCTION(BlueprintCallable)
 	void AddToPile(ABaseItem* Item, bool& bFilled);
 	UFUNCTION(BlueprintCallable)

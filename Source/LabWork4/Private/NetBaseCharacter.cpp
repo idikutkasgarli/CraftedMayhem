@@ -169,12 +169,19 @@ void ANetBaseCharacter::OnRep_bDead()
 	WhenDead();
 }
 
+void ANetBaseCharacter::OnRep_Buff()
+{
+}
+
+
+
 void ANetBaseCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ANetBaseCharacter, PartSelection);
 	DOREPLIFETIME(ANetBaseCharacter, Health);
 	DOREPLIFETIME(ANetBaseCharacter, bDead);
+	
 }
 
 FSMeshAssetList* ANetBaseCharacter::GetBodyPartList(EBodyPart part, bool isFemale)

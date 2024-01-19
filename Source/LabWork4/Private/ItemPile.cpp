@@ -79,16 +79,20 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 					case ItemTypes::Heart:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HeartX2"));
+						BelongAvatar->DoubleHeartBuff();
+
 						break;
 					}
 					case ItemTypes::Speed:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Hearth-Speed"));
+						BelongAvatar->HeartAndSpeedBuff();
 						break;
 					}
 					case ItemTypes::Attack:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Hearth-Attack"));
+						BelongAvatar->HeartAndAttackBuff();
 						break;
 					}
 				}
@@ -101,16 +105,19 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 					case ItemTypes::Heart:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Speed-Heart"));
+						BelongAvatar->HeartAndSpeedBuff();
 						break;
 					}
 					case ItemTypes::Speed:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("SpeedX2"));
+						BelongAvatar->DoubleSpeedBuff(true);
 						break;
 					}
 					case ItemTypes::Attack:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Speed-Attack"));
+						BelongAvatar->SpeedAndAttackBuff();
 						break;
 					}
 				}
@@ -123,16 +130,19 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 					case ItemTypes::Heart:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Attack-Heart"));
+						BelongAvatar->HeartAndAttackBuff();
 						break;
 					}
 					case ItemTypes::Speed:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Attack-Speed"));
+						BelongAvatar->SpeedAndAttackBuff();
 						break;
 					}
 					case ItemTypes::Attack:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AttackX2"));
+						BelongAvatar->DoubleAttackBuff();
 						break;
 					}
 	

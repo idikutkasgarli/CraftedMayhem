@@ -32,6 +32,9 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	float MovementScale;
 
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_UpdateMovementParams)
+	bool bSpeedBuff;
+
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
@@ -40,6 +43,25 @@ public:
 
 	UFUNCTION(Server, Reliable)
 	void ServerStopRunning();
+
+	
+	UFUNCTION(BlueprintCallable)
+	void DoubleHeartBuff();
+
+	UFUNCTION(BlueprintCallable)
+	void HeartAndSpeedBuff();
+
+	UFUNCTION(BlueprintCallable)
+	void HeartAndAttackBuff();
+
+	UFUNCTION(BlueprintCallable)
+	void DoubleSpeedBuff(bool bSpeedTrigger);
+
+	UFUNCTION(BlueprintCallable)
+	 void SpeedAndAttackBuff();
+
+	UFUNCTION(BlueprintCallable)
+	void DoubleAttackBuff();
 
 
 
