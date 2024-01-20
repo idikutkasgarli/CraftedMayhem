@@ -10,6 +10,8 @@
 /**
  * 
  */
+
+
 UCLASS()
 class UNetGameInstance : public UGameInstance
 {
@@ -18,11 +20,14 @@ class UNetGameInstance : public UGameInstance
 public:
 
 	UFUNCTION(BlueprintCallable)
-	void host(FString MapName, FSPlayerInfo PlayerInfo);
+	void host(FString MapName, FSPlayerInfo PlayerInfo, FSPlayerStats Stats);
 
 	UFUNCTION(BlueprintCallable)
-	void join(FString Address, FSPlayerInfo PlayerInfo);
+	void join(FString Address, FSPlayerInfo PlayerInfo, FSPlayerStats Stats);
 
 	UPROPERTY(BlueprintReadWrite)
 	FSPlayerInfo PlayerInfo;
+
+	UPROPERTY(BlueprintReadWrite)
+	FSPlayerStats PlayerStats;
 };

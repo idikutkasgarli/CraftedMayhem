@@ -55,14 +55,18 @@ ANetBaseCharacter::ANetBaseCharacter()
 	SBodyParts = DT_BodyParts.Object;
 
 	bDead = false;
+	PlayerDamage = 20.f;
 	MaxHealth = 100;
+	SpeedMltp = 0.f;
+	HealthMltp = 1.f;
+	DamageMltp = 1.f;
 }
 
 // Called when the game starts or when spawned
-void ANetBaseCharacter::BeginPlay()
+/*void ANetBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	MaxHealth = 100;
+	
 	Health = MaxHealth;
 
 	if (IsLocallyControlled())
@@ -71,9 +75,38 @@ void ANetBaseCharacter::BeginPlay()
 		if (Instance && Instance->PlayerInfo.Ready)
 		{
 			SubmitPlayerInfoToServer(Instance->PlayerInfo);
-
+			Health = Instance->PlayerStats.Health;
+			SpeedMltp = Instance->PlayerStats.SpeedMltp;
+			DamageMltp = Instance->PlayerStats.DamageMltp;
 		}
 	}	
+}*/
+
+void ANetBaseCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Health = MaxHealth;
+
+	if (IsLocallyControlled())
+	{
+		UNetGameInstance* Instance = Cast<UNetGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+		if (Instance)
+		{
+			
+			SubmitPlayerInfoToServer(Instance->PlayerInfo);
+
+			// Retrieve and set player stats from the game instance
+			Health = Instance->PlayerStats.Health;
+			SpeedMltp = Instance->PlayerStats.SpeedMltp;
+			DamageMltp = Instance->PlayerStats.DamageMltp;
+		}
+		else
+		{
+			// Log an error or display a message if the game instance is not found
+			UE_LOG(LogTemp, Error, TEXT("Game instance not found."));
+		}
+	}
 }
 
 void ANetBaseCharacter::OnConstruction(const FTransform& Transform)
@@ -85,6 +118,8 @@ void ANetBaseCharacter::OnConstruction(const FTransform& Transform)
 void ANetBaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+
 
 }
 
@@ -138,16 +173,23 @@ void ANetBaseCharacter::ChangeGender(bool _isFemale)
 void ANetBaseCharacter::SubmitPlayerInfoToServer_Implementation(FSPlayerInfo Info)
 {
 	PartSelection = Info.BodyParts;
+	//PlayerStats = Info.PlayerStats;
 
 	if (HasAuthority())
 	{
 		OnRep_PlayerInfoChanged();
+		OnRep_PlayerStatChanged();
 	}
 }
 
 void ANetBaseCharacter::OnRep_PlayerInfoChanged()
 {
 	UpdateBodyParts();
+}
+
+void ANetBaseCharacter::OnRep_PlayerStatChanged()
+{
+	UpdatePlayerStats();
 }
 
 void ANetBaseCharacter::WhenDead_Implementation()//replike_?
@@ -170,6 +212,7 @@ void ANetBaseCharacter::OnRep_bDead()
 
 void ANetBaseCharacter::OnRep_Buff()
 {
+	
 }
 
 void ANetBaseCharacter::DisableInputPlayer()
@@ -184,9 +227,12 @@ void ANetBaseCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimePropert
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ANetBaseCharacter, PartSelection);
+	DOREPLIFETIME(ANetBaseCharacter, PlayerStats);
 	DOREPLIFETIME(ANetBaseCharacter, Health);
 	DOREPLIFETIME(ANetBaseCharacter, bDead);
-	
+	DOREPLIFETIME(ANetBaseCharacter, SpeedMltp);
+	DOREPLIFETIME(ANetBaseCharacter, HealthMltp);
+	DOREPLIFETIME(ANetBaseCharacter, DamageMltp);
 }
 
 FSMeshAssetList* ANetBaseCharacter::GetBodyPartList(EBodyPart part, bool isFemale)
@@ -207,10 +253,23 @@ void ANetBaseCharacter::UpdateBodyParts()
 
 }
 
+void ANetBaseCharacter::UpdatePlayerStats()
+{
+	UNetGameInstance* Instance = Cast<UNetGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (Instance)
+	{
+
+		Health = Instance->PlayerStats.Health;
+		SpeedMltp = Instance->PlayerStats.SpeedMltp;
+		DamageMltp = Instance->PlayerStats.DamageMltp;
+	}
+}
+
 void ANetBaseCharacter::TakeDamage_Implementation(float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
 	if (!HasAuthority())return;
 	if (bDead)return;
+	PlayerDamage = Damage;
 	Health = Health - Damage;
 	if (Health <= 0)
 	{

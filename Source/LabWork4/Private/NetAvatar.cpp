@@ -6,6 +6,7 @@
 
 ANetAvatar::ANetAvatar() :
 	bSpeedBuff(false),
+	HealthRegenMltp(0.05),
 	MovementScale(1.0f)
 
 {
@@ -25,6 +26,9 @@ void ANetAvatar::BeginPlay()
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+
+  
+
 }
 
 void ANetAvatar::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -55,7 +59,13 @@ void ANetAvatar::DoubleHeartBuff()
 
 void ANetAvatar::HeartAndSpeedBuff()
 {
-	//can yenileme
+
+	while (ANetAvatar::GetCharacterMovement()->Velocity.Length() > 0);
+	{
+		
+		Health += Health * HealthRegenMltp;
+	}
+
 }
 
 void ANetAvatar::HeartAndAttackBuff()
@@ -102,25 +112,13 @@ void ANetAvatar::MoveRight(float Scale)
 
 void ANetAvatar::OnRep_UpdateMovementParams()
 {
-	if (bSpeedBuff)
+	 if (bHoldingRunKey)
 	{
-		if (bHoldingRunKey)
-		{
-			GetCharacterMovement()->MaxWalkSpeed = 1500.0f;
-		}
-		else
-		{
-			GetCharacterMovement()->MaxWalkSpeed = 1000.0f;
-		}
-	
-	}
-	else if (bHoldingRunKey)
-	{
-		GetCharacterMovement()->MaxWalkSpeed = 600.0f;
+		GetCharacterMovement()->MaxWalkSpeed = 600.f + 600.0f * SpeedMltp;
 	}
 	else
 	{
-		GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+		GetCharacterMovement()->MaxWalkSpeed = 300.f + 300.0f * SpeedMltp;
 	}
 }
 

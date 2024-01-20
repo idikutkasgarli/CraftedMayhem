@@ -46,6 +46,8 @@ struct FSBodyPartSelection
     bool isFemale;
 };
 
+
+
 USTRUCT(BlueprintType)
 struct FSPlayerInfo
 {
@@ -58,7 +60,35 @@ struct FSPlayerInfo
     FSBodyPartSelection BodyParts;
 
     bool Ready;
+    
 };
+
+USTRUCT(BlueprintType)
+struct FSPlayerStats
+{
+    GENERATED_USTRUCT_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Health")
+    float Health;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Health")
+    float MaxHealth;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float PlayerDamage;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float SpeedMltp;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float HealthMltp;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float DamageMltp;
+
+};
+
+
 
 UCLASS()
 class ANetBaseCharacter : public ACharacter
@@ -87,11 +117,17 @@ public:
     UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_PlayerInfoChanged)
     FSBodyPartSelection PartSelection;
 
+    UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_PlayerStatChanged)
+    FSPlayerStats PlayerStats;
+
     UFUNCTION(Server, Reliable)
     void SubmitPlayerInfoToServer(FSPlayerInfo Info);
 
     UFUNCTION()
     void OnRep_PlayerInfoChanged();
+
+    UFUNCTION()
+    void OnRep_PlayerStatChanged();
 
 
 private:
@@ -120,14 +156,30 @@ private:
 
     void UpdateBodyParts();
 
+    void UpdatePlayerStats();
+
 public:
     UFUNCTION(BlueprintCallable,NetMulticast, Reliable)
     void TakeDamage(float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
-    UPROPERTY(Replicated,BlueprintReadWrite,Category = "Character Health")
+    UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite, Category = "Character Health")
     float Health;
-    UPROPERTY(BlueprintReadWrite, Category = "Character Health")
-    float MaxHealth;//geçici
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Health")
+    float MaxHealth;
+
+    UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite)
+    float PlayerDamage;
+
+    UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite)
+    float SpeedMltp;
+
+    UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite)
+    float HealthMltp;
+
+    UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite)
+    float DamageMltp;
+
     UPROPERTY(BlueprintReadWrite, Category = "Character Health", ReplicatedUsing = OnRep_bDead)
     bool bDead;//geçici
 

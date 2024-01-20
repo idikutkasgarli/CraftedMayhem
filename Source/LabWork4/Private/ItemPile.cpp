@@ -2,6 +2,8 @@
 
 
 #include "ItemPile.h"
+#include "NetGameInstance.h"
+
 ABaseItem* CheckingItem;
 //ABaseItem* LastItem;
 // Sets default values
@@ -17,7 +19,15 @@ void AItemPile::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	
+		
+	
+
+
 }
+
+
+
 
 // Called every frame
 void AItemPile::Tick(float DeltaTime)
@@ -79,7 +89,12 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 					case ItemTypes::Heart:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HeartX2"));
-						BelongAvatar->DoubleHeartBuff();
+						BelongAvatar->Health = 200.f;
+						BelongAvatar->MaxHealth = 200.f;
+						SetPlayerStatsToInstance();
+						float health = BelongAvatar->MaxHealth;
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health: %f"), health));
+
 
 						break;
 					}
@@ -111,7 +126,9 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 					case ItemTypes::Speed:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("SpeedX2"));
-						BelongAvatar->DoubleSpeedBuff(true);
+						BelongAvatar->SpeedMltp = 1.5f;
+						BelongAvatar->OnRep_UpdateMovementParams();
+						SetPlayerStatsToInstance();
 						break;
 					}
 					case ItemTypes::Attack:
@@ -142,7 +159,8 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 					case ItemTypes::Attack:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AttackX2"));
-						BelongAvatar->DoubleAttackBuff();
+						BelongAvatar->PlayerDamage *= 2.f;
+						SetPlayerStatsToInstance();
 						break;
 					}
 	
@@ -153,5 +171,22 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 		}
 		CheckingItem = nullptr;
 	}
+}
+
+void AItemPile::SetPlayerStatsToInstance()
+{
+
+	UNetGameInstance* Instance = Cast<UNetGameInstance>(GWorld->GetGameInstance());
+	if (Instance)
+	{
+		Instance->PlayerStats.Health = BelongAvatar->Health;
+		Instance->PlayerStats.MaxHealth = BelongAvatar->MaxHealth;
+		Instance->PlayerStats.PlayerDamage = BelongAvatar->PlayerDamage;
+		Instance->PlayerStats.SpeedMltp = BelongAvatar->SpeedMltp;
+		Instance->PlayerStats.HealthMltp = BelongAvatar->HealthMltp;
+		Instance->PlayerStats.DamageMltp = BelongAvatar->DamageMltp;
+	}
+
+
 }
 

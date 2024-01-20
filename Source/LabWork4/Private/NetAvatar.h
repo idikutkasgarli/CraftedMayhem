@@ -35,6 +35,12 @@ public:
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_UpdateMovementParams)
 	bool bSpeedBuff;
 
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_UpdateMovementParams)
+	bool bRegenBuff;
+
+	UPROPERTY(VisibleAnywhere)
+	float HealthRegenMltp;
+
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
@@ -63,11 +69,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DoubleAttackBuff();
 
-
-
-private:
 	UFUNCTION()
 	void OnRep_UpdateMovementParams();
+
+private:
+	
 
 	void MoveForward(float Amount);
 	void MoveRight(float Amount);

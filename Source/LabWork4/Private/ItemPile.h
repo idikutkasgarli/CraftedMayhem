@@ -40,5 +40,7 @@ public:
 	void RemoveAnItemFromItemPile(ABaseItem* ItemToRemove);
 	UFUNCTION(BlueprintCallable)
 	void SetCraftedItem(ABaseItem* NewCheckingItems);
+	UFUNCTION(BlueprintCallable)
+	void SetPlayerStatsToInstance();
 
 };
