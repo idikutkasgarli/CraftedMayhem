@@ -3,6 +3,13 @@
 
 #include "NetGameInstance.h"
 
+
+void UNetGameInstance::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(UNetGameInstance, PlayerStats);
+}
+
 void UNetGameInstance::host(FString MapName, FSPlayerInfo Info, FSPlayerStats Stats)
 {
 	GEngine->AddOnScreenDebugMessage(0, 1.0f, FColor::Red, TEXT("Hosting Game..."));

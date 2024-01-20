@@ -175,18 +175,18 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 
 void AItemPile::SetPlayerStatsToInstance()
 {
-
-	UNetGameInstance* Instance = Cast<UNetGameInstance>(GWorld->GetGameInstance());
+	UNetGameInstance* Instance = GetWorld()->GetGameInstance<UNetGameInstance>();
 	if (Instance)
 	{
+		// Update PlayerStats in the game instance
 		Instance->PlayerStats.Health = BelongAvatar->Health;
 		Instance->PlayerStats.MaxHealth = BelongAvatar->MaxHealth;
 		Instance->PlayerStats.PlayerDamage = BelongAvatar->PlayerDamage;
 		Instance->PlayerStats.SpeedMltp = BelongAvatar->SpeedMltp;
 		Instance->PlayerStats.HealthMltp = BelongAvatar->HealthMltp;
 		Instance->PlayerStats.DamageMltp = BelongAvatar->DamageMltp;
+
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Instance Health: %f"), Instance->PlayerStats.Health));
 	}
-
-
 }
 

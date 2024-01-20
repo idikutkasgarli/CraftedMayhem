@@ -100,6 +100,9 @@ void ANetBaseCharacter::BeginPlay()
 			Health = Instance->PlayerStats.Health;
 			SpeedMltp = Instance->PlayerStats.SpeedMltp;
 			DamageMltp = Instance->PlayerStats.DamageMltp;
+
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("PLAYER STATS UPDATED"));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health: %f"), Health));
 		}
 		else
 		{
@@ -170,16 +173,29 @@ void ANetBaseCharacter::ChangeGender(bool _isFemale)
 	UpdateBodyParts();
 }
 
-void ANetBaseCharacter::SubmitPlayerInfoToServer_Implementation(FSPlayerInfo Info)
+/*void ANetBaseCharacter::SubmitPlayerInfoToServer_Implementation(FSPlayerInfo Info, FSPlayerStats Stats)
 {
 	PartSelection = Info.BodyParts;
-	//PlayerStats = Info.PlayerStats;
+	PlayerStats = Stats.PlayerStats;
 
 	if (HasAuthority())
 	{
 		OnRep_PlayerInfoChanged();
 		OnRep_PlayerStatChanged();
 	}
+}*/
+
+void ANetBaseCharacter::SubmitPlayerInfoToServer_Implementation(FSPlayerInfo Info)
+{
+	PartSelection = Info.BodyParts;
+	PlayerStats = Info.PlayerStats;
+
+	if (HasAuthority())
+	{
+		OnRep_PlayerInfoChanged();
+		OnRep_PlayerStatChanged();
+	}
+
 }
 
 void ANetBaseCharacter::OnRep_PlayerInfoChanged()

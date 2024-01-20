@@ -47,22 +47,6 @@ struct FSBodyPartSelection
 };
 
 
-
-USTRUCT(BlueprintType)
-struct FSPlayerInfo
-{
-    GENERATED_USTRUCT_BODY()
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FText Nickname;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FSBodyPartSelection BodyParts;
-
-    bool Ready;
-    
-};
-
 USTRUCT(BlueprintType)
 struct FSPlayerStats
 {
@@ -87,6 +71,23 @@ struct FSPlayerStats
     float DamageMltp;
 
 };
+
+USTRUCT(BlueprintType)
+struct FSPlayerInfo
+{
+    GENERATED_USTRUCT_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FText Nickname;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FSBodyPartSelection BodyParts;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FSPlayerStats PlayerStats;
+
+    bool Ready;
+};
+
 
 
 

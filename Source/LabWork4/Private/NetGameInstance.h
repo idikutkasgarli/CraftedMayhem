@@ -19,6 +19,8 @@ class UNetGameInstance : public UGameInstance
 
 public:
 
+	void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const;
+
 	UFUNCTION(BlueprintCallable)
 	void host(FString MapName, FSPlayerInfo PlayerInfo, FSPlayerStats Stats);
 
@@ -28,6 +30,6 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	FSPlayerInfo PlayerInfo;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	FSPlayerStats PlayerStats;
 };

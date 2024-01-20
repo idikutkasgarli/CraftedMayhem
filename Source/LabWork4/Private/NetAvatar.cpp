@@ -27,7 +27,7 @@ void ANetAvatar::BeginPlay()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->MaxWalkSpeed = 300.0f;
 
-  
+   
 
 }
 
