@@ -92,8 +92,8 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 						BelongAvatar->Health = 200.f;
 						BelongAvatar->MaxHealth = 200.f;
 						SetPlayerStatsToInstance();
-						float health = BelongAvatar->MaxHealth;
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health: %f"), health));
+						//float health = BelongAvatar->MaxHealth;
+						//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health: %f"), health));
 
 
 						break;
@@ -179,14 +179,14 @@ void AItemPile::SetPlayerStatsToInstance()
 	if (Instance)
 	{
 		// Update PlayerStats in the game instance
-		Instance->PlayerStats.Health = BelongAvatar->Health;
-		Instance->PlayerStats.MaxHealth = BelongAvatar->MaxHealth;
-		Instance->PlayerStats.PlayerDamage = BelongAvatar->PlayerDamage;
-		Instance->PlayerStats.SpeedMltp = BelongAvatar->SpeedMltp;
-		Instance->PlayerStats.HealthMltp = BelongAvatar->HealthMltp;
-		Instance->PlayerStats.DamageMltp = BelongAvatar->DamageMltp;
+		Instance->PlayerInfo.PlayerStats.Health = BelongAvatar->Health;
+		Instance->PlayerInfo.PlayerStats.MaxHealth = BelongAvatar->MaxHealth;
+		Instance->PlayerInfo.PlayerStats.PlayerDamage = BelongAvatar->PlayerDamage;
+		Instance->PlayerInfo.PlayerStats.SpeedMltp = BelongAvatar->SpeedMltp;
+		Instance->PlayerInfo.PlayerStats.HealthMltp = BelongAvatar->HealthMltp;
+		Instance->PlayerInfo.PlayerStats.DamageMltp = BelongAvatar->DamageMltp;
 
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Instance Health: %f"), Instance->PlayerStats.Health));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Instance Health: %f"), Instance->PlayerInfo.PlayerStats.Health));
 	}
 }
 

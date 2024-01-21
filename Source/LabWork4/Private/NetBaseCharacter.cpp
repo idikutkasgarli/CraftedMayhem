@@ -86,7 +86,7 @@ void ANetBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Health = MaxHealth;
+	
 
 	if (IsLocallyControlled())
 	{
@@ -94,14 +94,14 @@ void ANetBaseCharacter::BeginPlay()
 		if (Instance)
 		{
 			
-			SubmitPlayerInfoToServer(Instance->PlayerInfo);
+			
 
 			// Retrieve and set player stats from the game instance
-			Health = Instance->PlayerStats.Health;
-			SpeedMltp = Instance->PlayerStats.SpeedMltp;
-			DamageMltp = Instance->PlayerStats.DamageMltp;
-
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("PLAYER STATS UPDATED"));
+			Health = Instance->PlayerInfo.PlayerStats.Health;
+			SpeedMltp = Instance->PlayerInfo.PlayerStats.SpeedMltp;
+			DamageMltp = Instance->PlayerInfo.PlayerStats.DamageMltp;
+            SubmitPlayerInfoToServer(Instance->PlayerInfo);
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("PLAYER STATS UPDATED"));
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health: %f"), Health));
 		}
 		else
@@ -110,6 +110,9 @@ void ANetBaseCharacter::BeginPlay()
 			UE_LOG(LogTemp, Error, TEXT("Game instance not found."));
 		}
 	}
+
+	
+
 }
 
 void ANetBaseCharacter::OnConstruction(const FTransform& Transform)
@@ -188,12 +191,12 @@ void ANetBaseCharacter::ChangeGender(bool _isFemale)
 void ANetBaseCharacter::SubmitPlayerInfoToServer_Implementation(FSPlayerInfo Info)
 {
 	PartSelection = Info.BodyParts;
-	PlayerStats = Info.PlayerStats;
+	//PlayerStats = Info.PlayerStats;
 
 	if (HasAuthority())
 	{
 		OnRep_PlayerInfoChanged();
-		OnRep_PlayerStatChanged();
+		//OnRep_PlayerStatChanged();
 	}
 
 }
@@ -276,6 +279,7 @@ void ANetBaseCharacter::UpdatePlayerStats()
 	{
 
 		Health = Instance->PlayerStats.Health;
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Instance Health: %f"), Instance->PlayerStats.Health));
 		SpeedMltp = Instance->PlayerStats.SpeedMltp;
 		DamageMltp = Instance->PlayerStats.DamageMltp;
 	}

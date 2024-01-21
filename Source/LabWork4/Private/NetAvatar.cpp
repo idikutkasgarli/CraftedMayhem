@@ -60,7 +60,7 @@ void ANetAvatar::DoubleHeartBuff()
 void ANetAvatar::HeartAndSpeedBuff()
 {
 
-	while (ANetAvatar::GetCharacterMovement()->Velocity.Length() > 0);
+	while (ANetAvatar::GetCharacterMovement()->Velocity.Length() > 0)
 	{
 		
 		Health += Health * HealthRegenMltp;

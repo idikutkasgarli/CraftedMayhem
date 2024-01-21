@@ -22,10 +22,10 @@ public:
 	void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const;
 
 	UFUNCTION(BlueprintCallable)
-	void host(FString MapName, FSPlayerInfo PlayerInfo, FSPlayerStats Stats);
+	void host(FString MapName, FSPlayerInfo PlayerInfo);
 
 	UFUNCTION(BlueprintCallable)
-	void join(FString Address, FSPlayerInfo PlayerInfo, FSPlayerStats Stats);
+	void join(FString Address, FSPlayerInfo PlayerInfo);
 
 	UPROPERTY(BlueprintReadWrite)
 	FSPlayerInfo PlayerInfo;

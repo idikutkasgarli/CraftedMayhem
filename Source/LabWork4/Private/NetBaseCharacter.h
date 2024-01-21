@@ -82,6 +82,7 @@ struct FSPlayerInfo
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FSBodyPartSelection BodyParts;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FSPlayerStats PlayerStats;
 
