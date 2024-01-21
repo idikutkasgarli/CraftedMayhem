@@ -229,10 +229,7 @@ void ANetBaseCharacter::OnRep_bDead()
 	WhenDead();
 }
 
-void ANetBaseCharacter::OnRep_Buff()
-{
-	
-}
+
 
 void ANetBaseCharacter::DisableInputPlayer()
 {

@@ -41,6 +41,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	float HealthRegenMltp;
 
+	UPROPERTY(EditAnywhere)
+	float HitSpeed;
+
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 

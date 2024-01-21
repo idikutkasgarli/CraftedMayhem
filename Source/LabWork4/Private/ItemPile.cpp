@@ -88,7 +88,7 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 				{
 					case ItemTypes::Heart:
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HeartX2"));
+						//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HeartX2"));
 						BelongAvatar->Health = 200.f;
 						BelongAvatar->MaxHealth = 200.f;
 						SetPlayerStatsToInstance();
@@ -107,7 +107,7 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 					case ItemTypes::Attack:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Hearth-Attack"));
-						BelongAvatar->HeartAndAttackBuff();
+						BelongAvatar->SetActorScale3D(FVector(1.4f, 1.3f, 1.2f));
 						break;
 					}
 				}
@@ -147,13 +147,13 @@ void AItemPile::SetCraftedItem(ABaseItem* NewCheckingItems)
 					case ItemTypes::Heart:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Attack-Heart"));
-						BelongAvatar->HeartAndAttackBuff();
+						BelongAvatar->SetActorScale3D(FVector(1.4f, 1.3f, 1.2f));
 						break;
 					}
 					case ItemTypes::Speed:
 					{
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Attack-Speed"));
-						BelongAvatar->SpeedAndAttackBuff();
+						BelongAvatar->HitSpeed = 0.1f;
 						break;
 					}
 					case ItemTypes::Attack:

@@ -7,6 +7,7 @@
 ANetAvatar::ANetAvatar() :
 	bSpeedBuff(false),
 	HealthRegenMltp(0.05),
+	HitSpeed(0.5f),
 	MovementScale(1.0f)
 
 {

@@ -195,8 +195,6 @@ public:
     UFUNCTION()
     void OnRep_bDead();
 
-    UFUNCTION()
-    void OnRep_Buff();
 
     UFUNCTION(BlueprintImplementableEvent)
     void WhenDied();
